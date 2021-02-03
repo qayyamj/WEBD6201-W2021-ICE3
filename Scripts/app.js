@@ -6,14 +6,6 @@
 
 "use strict";
 
-// // Create an object without a class
-// let myContact = 
-// {
-//   "fullName":"Tom Smith",
-//   "contactNumber":"416-555-5555",
-//   "emailAddress":"tom@example.com"
-// };
-
 ((core) =>
 {
     function displayHome()
@@ -155,13 +147,27 @@
 
           localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());
         });
+
+        let userData = "Diana Prince,4153333333,wonderwoman@justiceleague.com";
+        $("main").append(`
+        <div class="row justify-content-lg-center subscriber">
+          <div class="col-lg-10">
+          <p>We have a monthly newsletter. Click the button below to subscribe.</p>
+            <button id="subscribeButton" class="btn btn-primary"><i class="fas fa-user-plus"></i> Subscribe</button>
+          </div>
+        </div>    
+        `);
+
+        $(".subscriber").css("margin","60px 50px");
+
+        $("#subscribeButton").on("click", ()=>{
+          localStorage.setItem((localStorage.length + 1).toString(), userData);
+        });
     }
 
     function Start()
     {
         console.log("App Started...");
-
-       // console.log(myContact);
 
         switch (document.title) 
         {
