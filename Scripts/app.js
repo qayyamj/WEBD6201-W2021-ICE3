@@ -92,7 +92,6 @@
 
       if(localStorage.length > 0)
       {
-        let contactList = document.getElementById("contactList");
         let data = "";
         
         for (let index = 1; index < localStorage.length + 1; index++)
@@ -106,11 +105,11 @@
           <td>${contact.fullName}</td>
           <td>${contact.contactNumber}</td>
           <td>${contact.emailAddress}</td>
-        </tr>`
+          </tr>`
         }
-        contactList.innerHTML = data;
-      }
 
+        $("#contactList").html(data);
+      }
     }
 
 
@@ -119,34 +118,31 @@
         $("#messageArea").hide();
 
         // form validation
-        $("#fullName").on("blur", ()=>{
-          if($("#fullName").val().length < 2)
+        $("#fullName").on("blur", function()
+        {
+          if($(this).val().length < 2)
           {
-              $("#fullName").trigger("focus");
-              $("#fullName").trigger("select");
+              $(this).trigger("focus").trigger("select");
 
-              $("#messageArea").show();
-              $("#messageArea").addClass("alert alert-danger")
-              $("#messageArea").text("Please enter an appropriate Name");
+              $("#messageArea").show().addClass("alert alert-danger").text("Please enter an appropriate Name");
           }
           else
           {
-             $("#messageArea").removeAttr("class");
-             $("#messageArea").hide();
+             $("#messageArea").removeAttr("class").hide();
+
           }
         });
 
 
-        $("#sendButton").on("click", ()=>{
+        $("#sendButton").on("click", ()=>
+        {
           let contact = new core.Contact(fullName.value, contactNumber.value, emailAddress.value);
 
           if(contact.serialize())
           {
             localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());
           }
-        });
-
-              
+        });       
     }
 
     function Start()
