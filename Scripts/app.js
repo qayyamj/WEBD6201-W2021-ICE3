@@ -113,56 +113,40 @@
 
     }
 
+
     function displayContact()
     {
-        let messageArea = document.getElementById("messageArea");
-        messageArea.hidden = true;
+        $("#messageArea").hide();
 
         // form validation
-        let fullName = document.getElementById("fullName");
-        fullName.addEventListener("blur", function() {
-            if(fullName.value.length < 2)
-            {
-                fullName.focus();
-                fullName.select();
-                messageArea.hidden = false;
-                messageArea.className = "alert alert-danger";
-                messageArea.textContent = "Please enter an appropriate Name";
-            }
-            else
-            {
-                messageArea.removeAttribute("class");
-                messageArea.hidden = true;
-            }
+        $("#fullName").on("blur", ()=>{
+          if($("#fullName").val().length < 2)
+          {
+              $("#fullName").trigger("focus");
+              $("#fullName").trigger("select");
+
+              $("#messageArea").show();
+              $("#messageArea").addClass("alert alert-danger")
+              $("#messageArea").text("Please enter an appropriate Name");
+          }
+          else
+          {
+             $("#messageArea").removeAttr("class");
+             $("#messageArea").hide();
+          }
         });
 
-        let sendButton = document.getElementById("sendButton");
-        sendButton.addEventListener("click", function(event)
-        {
-            //event.preventDefault();
 
+        $("#sendButton").on("click", ()=>{
           let contact = new core.Contact(fullName.value, contactNumber.value, emailAddress.value);
-          
-          console.log(contact.serialize());
 
-          localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());
+          if(contact.serialize())
+          {
+            localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());
+          }
         });
 
-        let userData = "Diana Prince,4153333333,wonderwoman@justiceleague.com";
-        $("main").append(`
-        <div class="row justify-content-lg-center subscriber">
-          <div class="col-lg-10">
-          <p>We have a monthly newsletter. Click the button below to subscribe.</p>
-            <button id="subscribeButton" class="btn btn-primary"><i class="fas fa-user-plus"></i> Subscribe</button>
-          </div>
-        </div>    
-        `);
-
-        $(".subscriber").css("margin","60px 50px");
-
-        $("#subscribeButton").on("click", ()=>{
-          localStorage.setItem((localStorage.length + 1).toString(), userData);
-        });
+              
     }
 
     function Start()
