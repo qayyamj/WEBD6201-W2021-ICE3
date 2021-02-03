@@ -1,3 +1,7 @@
+"use strict";
+// Contact Class
+
+((core)=>{
 class Contact 
 {
     // Constructor
@@ -99,3 +103,10 @@ Email Address:     ${this.emailAddress}`;
     }
 
 }
+
+core.Contact = Contact;
+
+})(core || (core={}));
+
+
+
